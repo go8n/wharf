@@ -2,6 +2,7 @@ package genie
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/itchio/headway/united"
 )
@@ -41,12 +42,13 @@ func (comp *Composition) Append(origin Origin) {
 }
 
 func (comp *Composition) String() string {
-	res := fmt.Sprintf("file %d, block %d (%s) is composed of: ", comp.FileIndex, comp.BlockIndex, united.FormatBytes(comp.Size))
+	var res strings.Builder
+	res.WriteString(fmt.Sprintf("file %d, block %d (%s) is composed of: ", comp.FileIndex, comp.BlockIndex, united.FormatBytes(comp.Size)))
 	for i, origin := range comp.Origins {
 		if i > 0 {
-			res += ", "
+			res.WriteString(", ")
 		}
-		res += fmt.Sprintf("%+v", origin)
+		res.WriteString(fmt.Sprintf("%+v", origin))
 	}
-	return res
+	return res.String()
 }

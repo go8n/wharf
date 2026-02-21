@@ -157,7 +157,7 @@ func (op *overlayProcessor) write(buf []byte) (int, error) {
 			return nil
 		}
 
-		for i := 0; i < rbuflen; i++ {
+		for i := range rbuflen {
 			if rbuf[i] == buf[i] {
 				// count the number of similar bytes as we go
 				same++

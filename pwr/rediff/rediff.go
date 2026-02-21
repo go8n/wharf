@@ -3,6 +3,7 @@ package rediff
 import (
 	"fmt"
 	"io"
+	"strings"
 
 	validation "github.com/go-ozzo/ozzo-validation"
 	"github.com/itchio/headway/state"
@@ -33,15 +34,15 @@ type DiffMappings map[int64]*DiffMapping
 // ToString returns a human-readable representation of all diff mappings,
 // which gives an overview of how files changed.
 func (dm DiffMappings) ToString(sourceContainer tlc.Container, targetContainer tlc.Container) string {
-	s := ""
+	var s strings.Builder
 	for sourceIndex, diffMapping := range dm {
-		s += fmt.Sprintf("%s <- %s (%s in common)\n",
+		s.WriteString(fmt.Sprintf("%s <- %s (%s in common)\n",
 			sourceContainer.Files[sourceIndex].Path,
 			targetContainer.Files[diffMapping.TargetIndex].Path,
 			united.FormatBytes(diffMapping.NumBytes),
-		)
+		))
 	}
-	return s
+	return s.String()
 }
 
 // Context holds options for the rediff process, along with

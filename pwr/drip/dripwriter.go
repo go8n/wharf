@@ -27,10 +27,7 @@ func (dw *Writer) Write(data []byte) (int, error) {
 	totalBytes := len(data)
 
 	for dataOffset < totalBytes {
-		writtenBytes := totalBytes - dataOffset
-		if writtenBytes > len(dw.Buffer)-dw.offset {
-			writtenBytes = len(dw.Buffer) - dw.offset
-		}
+		writtenBytes := min(totalBytes-dataOffset, len(dw.Buffer)-dw.offset)
 
 		copy(dw.Buffer[dw.offset:], data[dataOffset:dataOffset+writtenBytes])
 		dataOffset += writtenBytes

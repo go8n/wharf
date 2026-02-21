@@ -154,7 +154,7 @@ func (lf *lruFile) Stats() Stats {
 	return lf.stats
 }
 
-func (lf *lruFile) onEvict(key interface{}, value interface{}) {
+func (lf *lruFile) onEvict(key any, value any) {
 	// clear allocation!
 	storageIndex := value.(int)
 	lf.allocations[storageIndex] = -1

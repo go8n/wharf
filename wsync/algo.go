@@ -331,10 +331,3 @@ func (ctx *Context) ComputeDiff(source io.Reader, library *BlockLibrary, ops Ope
 	}
 	return nil
 }
-
-func min(a, b int) int {
-	if a < b {
-		return a
-	}
-	return b
-}

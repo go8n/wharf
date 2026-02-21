@@ -22,7 +22,7 @@ func (ar *AdderReader) Read(p []byte) (int, error) {
 	b := ar.Buffer
 	off := ar.offset
 
-	for i := 0; i < n; i++ {
+	for i := range n {
 		p[i] += b[off+i]
 	}
 	ar.offset += n

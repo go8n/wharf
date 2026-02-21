@@ -66,7 +66,7 @@ func Test_ArchiveHealer(t *testing.T) {
 		return filepath.Join(targetDir, nameFor(index))
 	}
 
-	for i := 0; i < numFiles; i++ {
+	for i := range numFiles {
 		fh := &zip.FileHeader{
 			Name: nameFor(i),
 		}
@@ -110,7 +110,7 @@ func Test_ArchiveHealer(t *testing.T) {
 			done <- true
 		}()
 
-		for i := 0; i < numFiles; i++ {
+		for i := range numFiles {
 			wounds <- &Wound{
 				Kind:  WoundKind_FILE,
 				Index: int64(i),
@@ -138,7 +138,7 @@ func Test_ArchiveHealer(t *testing.T) {
 	}
 
 	assertAllFilesHealed := func() {
-		for i := 0; i < numFiles; i++ {
+		for i := range numFiles {
 			data, err := os.ReadFile(pathFor(i))
 			assert.NoError(t, err)
 

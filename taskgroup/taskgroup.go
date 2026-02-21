@@ -30,7 +30,7 @@ func Do(ctx context.Context, tasks ...Task) error {
 		}(task)
 	}
 
-	for i := 0; i < n; i++ {
+	for range n {
 		select {
 		case err := <-done:
 			if err != nil {

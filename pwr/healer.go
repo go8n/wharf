@@ -13,12 +13,12 @@ import (
 // corresponding channel before starting to heal a file. Users of healers
 // should generally pass an array of fresh channels and close them once
 // the file becomes available for healing.
-type LockMap []chan interface{}
+type LockMap []chan any
 
 func NewLockMap(container *tlc.Container) LockMap {
-	lockMap := make([]chan interface{}, len(container.Files))
+	lockMap := make([]chan any, len(container.Files))
 	for i := range lockMap {
-		lockMap[i] = make(chan interface{})
+		lockMap[i] = make(chan any)
 	}
 	return lockMap
 }

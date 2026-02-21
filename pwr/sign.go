@@ -154,7 +154,7 @@ func ReadSignature(ctx context.Context, signatureReader savior.SeekSource) (*Sig
 			hashes = append(hashes, blockHash)
 		}
 
-		for blockIndex := int64(0); blockIndex < numBlocks; blockIndex++ {
+		for blockIndex := range numBlocks {
 			hash.Reset()
 			err = sigWire.ReadMessage(hash)
 

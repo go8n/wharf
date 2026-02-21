@@ -112,10 +112,10 @@ func writeSampleMessages(t *testing.T, w *wire.WriteContext) {
 	rng := rand.New(rand.NewSource(0xd00d627))
 	must(t, w.WriteMagic(magic))
 
-	for i := 0; i < 64; i++ {
+	for i := range 64 {
 		datalen := (256 + rng.Intn(256)) * 1024
 		data := make([]byte, datalen)
-		for j := 0; j < datalen; j++ {
+		for j := range datalen {
 			data[j] = byte(rng.Intn(256))
 		}
 

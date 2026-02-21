@@ -22,7 +22,7 @@ func NewPSA(p int, buf []byte, I []int) *PSA {
 	boundary := 0
 	partitionSize := len(buf) / p
 
-	for i := 0; i < p; i++ {
+	for i := range p {
 		boundaries[i] = boundary
 		boundary += partitionSize
 	}
@@ -32,7 +32,7 @@ func NewPSA(p int, buf []byte, I []int) *PSA {
 
 	// fmt.Fprintf(os.Stderr, "Constructing suffix array for %d bytes, %d partitions\n", len(buf), p)
 
-	for i := 0; i < p; i++ {
+	for i := range p {
 		st := boundaries[i]
 		en := boundaries[i+1]
 		// fmt.Fprintf(os.Stderr, "[%d...%d]\n", st, en)
@@ -44,7 +44,7 @@ func NewPSA(p int, buf []byte, I []int) *PSA {
 		}(st, en)
 	}
 
-	for i := 0; i < p; i++ {
+	for range p {
 		<-sortDone
 	}
 

@@ -34,13 +34,13 @@ func makeTestDir(t *testing.T, dir string) {
 		assert.NoError(t, os.Symlink(filepath.Join(dir, dest), filepath.Join(dir, name)))
 	}
 
-	for i := 0; i < 4; i++ {
+	for i := range 4 {
 		createFile(fmt.Sprintf("file-%d", i))
 	}
 
 	assert.NoError(t, os.MkdirAll(filepath.Join(dir, "subdir"), 0755))
 
-	for i := 0; i < 2; i++ {
+	for i := range 2 {
 		createFile(fmt.Sprintf("subdir/file-%d", i))
 	}
 

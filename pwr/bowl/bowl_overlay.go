@@ -6,6 +6,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"slices"
 	"sort"
 
 	"github.com/itchio/headway/state"
@@ -22,7 +23,7 @@ import (
 var debugBrokenRename = os.Getenv("BOWL_DEBUG_BROKEN_RENAME") == "1"
 var overlayVerbose = os.Getenv("BOWL_OVERLAY_VERBOSE") == "1"
 
-func debugf(format string, args ...interface{}) {
+func debugf(format string, args ...any) {
 	if overlayVerbose {
 		fmt.Printf("[overlayBowl] %s\n", fmt.Sprintf(format, args...))
 	}
@@ -185,11 +186,9 @@ func (b *overlayBowl) GetWriter(sourceFileIndex int64) (EntryWriter, error) {
 
 func (b *overlayBowl) markOverlay(sourceFileIndex int64) {
 	// make sure we don't double mark it
-	for _, i := range b.overlayFiles {
-		if i == sourceFileIndex {
-			// oh cool it's already marked
-			return
-		}
+	if slices.Contains(b.overlayFiles, sourceFileIndex) {
+		// oh cool it's already marked
+		return
 	}
 
 	// mark it
@@ -198,11 +197,9 @@ func (b *overlayBowl) markOverlay(sourceFileIndex int64) {
 
 func (b *overlayBowl) markMove(index int64) {
 	// make sure we don't double mark it
-	for _, i := range b.moveFiles {
-		if i == index {
-			// oh cool it's already marked
-			return
-		}
+	if slices.Contains(b.moveFiles, index) {
+		// oh cool it's already marked
+		return
 	}
 
 	// mark it

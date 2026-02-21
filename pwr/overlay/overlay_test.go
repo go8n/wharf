@@ -212,7 +212,7 @@ func testOverlayWriter(t *testing.T, tester testerFunc) {
 
 	rng := rand.New(rand.NewSource(0xf891))
 
-	for i := 0; i < fullDataSize; i++ {
+	for i := range fullDataSize {
 		current[i] = byte(rng.Intn(256))
 	}
 
@@ -225,7 +225,7 @@ func testOverlayWriter(t *testing.T, tester testerFunc) {
 	copy(patched, current)
 	tester(t, current, patched)
 
-	for i := 0; i < 16; i++ {
+	for range 16 {
 		freshSize := 1024 * rng.Intn(256)
 		freshPosition := rng.Intn(fullDataSize)
 

@@ -13,7 +13,7 @@ import (
 
 func Test_CtxCopy(t *testing.T) {
 	buf := make([]byte, 4*1024*1024)
-	for i := 0; i < len(buf); i++ {
+	for i := range buf {
 		buf[i] = byte(i)
 	}
 
@@ -27,7 +27,7 @@ func Test_CtxCopy(t *testing.T) {
 
 func Test_CtxCopyCancel(t *testing.T) {
 	buf := make([]byte, 4*1024*1024)
-	for i := 0; i < len(buf); i++ {
+	for i := range buf {
 		buf[i] = byte(i)
 	}
 

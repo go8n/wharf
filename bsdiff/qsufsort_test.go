@@ -106,7 +106,7 @@ func benchGosacaPar(input []byte, b *testing.B, numWorkers int) {
 		boundaries := make([]int, numWorkers+1)
 		boundary := 0
 
-		for i := 0; i < numWorkers; i++ {
+		for i := range numWorkers {
 			boundaries[i] = boundary
 			boundary += len(input) / numWorkers
 		}
@@ -114,7 +114,7 @@ func benchGosacaPar(input []byte, b *testing.B, numWorkers int) {
 
 		SA := make([]int, len(input)+1)
 
-		for i := 0; i < numWorkers; i++ {
+		for i := range numWorkers {
 			st := boundaries[i]
 			en := boundaries[i+1]
 
@@ -125,7 +125,7 @@ func benchGosacaPar(input []byte, b *testing.B, numWorkers int) {
 			}()
 		}
 
-		for i := 0; i < numWorkers; i++ {
+		for range numWorkers {
 			<-done
 		}
 	}

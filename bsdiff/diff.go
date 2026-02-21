@@ -282,7 +282,7 @@ func (ctx *DiffContext) Do(old, new io.Reader, writeMessage WriteMessageFunc, co
 					s := int(0)
 					Ss := int(0)
 					lens := int(0)
-					for i := int(0); i < overlap; i++ {
+					for i := range overlap {
 						if nbuf[lastscan+lenf-overlap+i] == obuf[lastpos+lenf-overlap+i] {
 							s++
 						}
@@ -327,10 +327,7 @@ func (ctx *DiffContext) Do(old, new io.Reader, writeMessage WriteMessageFunc, co
 	}
 
 	// TODO: figure out exactly how much overkill that is
-	numWorkers := partitions * 12
-	if numWorkers > numBlocks {
-		numWorkers = numBlocks
-	}
+	numWorkers := min(partitions*12, numBlocks)
 
 	blockWorkersState := make([]blockWorkerState, numWorkers)
 

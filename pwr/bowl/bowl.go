@@ -30,12 +30,12 @@ type EntryWriter interface {
 var ErrUninitializedWriter = fmt.Errorf("tried to write to source before Resume() was called")
 
 type BowlCheckpoint struct {
-	Data interface{}
+	Data any
 }
 
 type WriterCheckpoint struct {
 	Offset int64
-	Data   interface{}
+	Data   any
 }
 
 type Transposition struct {

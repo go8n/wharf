@@ -37,7 +37,7 @@ func Test_Simple(t *testing.T) {
 	go func() { var err error; b2, err = io.ReadAll(r2); done <- err }()
 	go func() { var err error; b3, err = io.ReadAll(r3); done <- err }()
 
-	for i := 0; i < 4; i++ {
+	for range 4 {
 		assert.NoError(t, <-done)
 	}
 	assert.EqualValues(t, buf, b1)
